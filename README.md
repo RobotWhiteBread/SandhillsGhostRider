@@ -79,4 +79,4 @@ See [LICENSE](LICENSE) for the full terms.
 
 ## Live version
 
-https://robotwhitebread.github.io/sandhillsghostrider/
+https://robotwhitebread.github.io/SandhillsGhostRider/
