@@ -69,6 +69,14 @@ All public data, used as published:
 
 `src/` holds the scripts that prepared the fine ground, wetlands, water levels and tree positions.
 
-## Photos
+## License
 
-The few photographs embedded as memories are my own, from the ranch, and are not licensed for reuse. You can add your own with the Add photos button.
+- **Code:** MIT. Use it to build a place of your own.
+- **Photographs:** my own, all rights reserved. You can add yours with the Add photos button.
+- **Data:** U.S. federal data is public domain; roads are from OpenStreetMap (ODbL); the horse model is CC0; the star catalog is BSD.
+
+See [LICENSE](LICENSE) for the full terms.
+
+## Live version
+
+https://robotwhitebread.github.io/sandhillsghostrider/
