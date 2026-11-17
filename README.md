@@ -28,6 +28,32 @@ Many people lose a place that shaped them: a family farm that was sold, a childh
 | ![Toward Grant's Peak](docs/toward_grants_peak.jpg) | ![A marsh](docs/marsh.jpg) |
 | ![The sky tour](docs/sky_tour.jpg) | ![Night on Grant's Peak](docs/night_on_grants_peak.jpg) |
 
+## Seeing the ghost
+
+| | |
+|---|---|
+| ![Rider's eye view over the horse](docs/ghost_riders_eye.jpg) | ![The ghost rider up close](docs/ghost_rider_closeup.jpg) |
+| Rider's eye view, looking over the horse's head | The ghost rider up close |
+| ![Fall gallop](docs/ghost_fall_gallop.jpg) | ![Winter](docs/ghost_winter.jpg) |
+| Fall gallop through the hills | Winter |
+| ![Grant's Peak at sunset](docs/grants_peak_sunset.jpg) | ![Grant's Peak at night](docs/grants_peak_night.jpg) |
+| Sunset on Grant's Peak | Stargazing on Grant's Peak, with the real sky for the date |
+| ![Late sun on Grant's Peak](docs/grants_peak_sun.jpg) | ![Riding the sky](docs/ghost_flight.jpg) |
+| Late sun on the peak | Flight mode |
+| ![Bird's eye view of the home place](docs/birdseye_home.jpg) | ![Peak beam at night](docs/grants_peak_stars_beam.jpg) |
+| Bird's eye view over the home place | Landmark beam on the peak |
+
+## What it is built on
+
+The ground is not invented. These images come straight from the public data used to build it.
+
+| | |
+|---|---|
+| ![Elevation](docs/data_elevation.jpg) | ![Lidar](docs/data_lidar.jpg) |
+| USGS 3DEP elevation, shaded | 1 m lidar detail near the home place compared with the 5 m ground |
+| ![Wetlands and trees](docs/data_wetlands_trees.jpg) | ![Photo colors](docs/data_photo_colors.jpg) |
+| National Wetlands Inventory plus trees found in the NAIP aerial | Grass and sky colors measured from my own photos, by month |
+
 ## Run it
 
 The page loads its ground data from the files beside it, so it needs to be served over http rather than opened as a file.
