@@ -26,7 +26,7 @@ Many people lose a place that shaped them: a family farm that was sold, a childh
 | | |
 |---|---|
 | ![Toward Grant's Peak](docs/toward_grants_peak.jpg) | ![A marsh](docs/marsh.jpg) |
-| ![The sky tour](docs/sky_tour.jpg) | ![Night on Grant's Peak](docs/night_on_grants_peak.jpg) |
+| ![Overhead map](docs/overhead_map.jpg) | ![Night on Grant's Peak](docs/night_on_grants_peak.jpg) |
 
 ## Seeing the ghost
 
@@ -34,14 +34,20 @@ Many people lose a place that shaped them: a family farm that was sold, a childh
 |---|---|
 | ![Rider's eye view over the horse](docs/ghost_riders_eye.jpg) | ![The ghost rider up close](docs/ghost_rider_closeup.jpg) |
 | Rider's eye view, looking over the horse's head | The ghost rider up close |
-| ![Fall gallop](docs/ghost_fall_gallop.jpg) | ![Winter](docs/ghost_winter.jpg) |
-| Fall gallop through the hills | Winter |
+| ![Spring gallop](docs/ghost_spring_gallop.jpg) | ![Winter](docs/ghost_winter.jpg) |
+| Spring gallop through the hills | Winter |
 | ![Grant's Peak at sunset](docs/grants_peak_sunset.jpg) | ![Grant's Peak at night](docs/grants_peak_night.jpg) |
 | Sunset on Grant's Peak | Stargazing on Grant's Peak, with the real sky for the date |
-| ![Late sun on Grant's Peak](docs/grants_peak_sun.jpg) | ![Riding the sky](docs/ghost_flight.jpg) |
-| Late sun on the peak | Flight mode |
+| ![Late sun on Grant's Peak](docs/grants_peak_sun.jpg) | ![Pet Cemetery Hill](docs/pet_cemetery_greeting.jpg) |
+| Late sun on the peak | Pet Cemetery Hill: the labs come to meet the rider |
 | ![Bird's eye view of the home place](docs/birdseye_home.jpg) | ![Peak beam at night](docs/grants_peak_stars_beam.jpg) |
 | Bird's eye view over the home place | Landmark beam on the peak |
+
+## Pet Cemetery Hill
+
+Just southeast of the home place is the hill where the ranch dogs and cats were laid to rest. Their ghosts are there: two black labs, four beagles, two German Shorthaired Pointers and five cats. The beagles run ghost rabbits, the pointers work and point a sharp-tailed grouse until it flushes, and the cats lounge in the short grass. Ride up and the labs come running, then sit, prance and spin at the rider's feet. They will follow you a little way, but they stay near the hill.
+
+![Pet Cemetery Hill at sunset](docs/pet_cemetery_hill.jpg)
 
 ## What it is built on
 
