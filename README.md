@@ -20,6 +20,8 @@ It is built from two things: my own photographs of the ranch, and public governm
 | The home place: gravel yard, lawn by the houses, windbreaks | Eastern redcedars on a grass slope |
 | ![Source view at Nichol Lake](docs/source_view.jpg) | ![Source view from Grant's Peak](docs/source_view_peak.jpg) |
 | Source view at Nichol Lake | Source view from Grant's Peak |
+| ![Nichol Lake](docs/nichol_lake.jpg) | ![Clouds over the peak](docs/clouds_midday.jpg) |
+| Cattle along Nichol Lake | Cumulus with real volume |
 
 - A real place at true scale: about 60 square miles of Sandhills from government elevation data, with the lakes, marshes, roads and trees where they really are.
 - A living prairie: grasses that change by season, wind, weather, cattle, horses, birds on the ponds, windmills and stock tanks, fences and cattle guards.
