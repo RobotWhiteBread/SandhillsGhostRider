@@ -80,8 +80,8 @@ Many people lose a place that shaped them: a family farm that was sold, a childh
 | Sunset on Grant's Peak | Stargazing on Grant's Peak, with the real sky for the date |
 | ![Late sun on Grant's Peak](docs/grants_peak_sun.jpg) | ![Pet Cemetery Hill](docs/pet_cemetery_greeting.jpg) |
 | Late sun on the peak | Pet Cemetery Hill: the labs come to meet the rider |
-| ![Bird's eye view of the home place](docs/birdseye_home.jpg) | ![Peak beam at night](docs/grants_peak_stars_beam.jpg) |
-| Bird's eye view over the home place | Landmark beam on the peak |
+| ![Bird's eye view of the home place](docs/birdseye_home.jpg) | ![The real night sky from the peak](docs/night_on_grants_peak.jpg) |
+| Bird's eye view over the home place | The real night sky from the peak, with the Moon and planets where they are tonight |
 
 ## Pet Cemetery Hill
 

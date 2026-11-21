@@ -362,7 +362,8 @@ const SHADOW_GLSL = `uniform float uCover, uCloud3D; uniform sampler2D uShadowMa
         base *= tuftL;
         { vec4 so2 = soilAt(vW.xz); float chop2 = smoothstep(.55, .95, so2.r * so2.b), mead2 = smoothstep(.3, .7, so2.g * so2.b) * (1.0 - uSnow);
           base = mix(base, base * vec3(1.10, .99, .80) + vec3(.035, .028, .012), chop2 * .5 * (1.0 - uSnow));                 // thin, tawny cover on the choppy sands, sand showing through
-          base = mix(base, base * vec3(.78, 1.0, .70), mead2 * .5 * mix(.5, 1.0, uGreen)); }                                   // subirrigated meadow: denser and greener, the hay ground
+          base = mix(base, base * vec3(.80, .98, .72), mead2 * .32 * mix(.5, 1.0, uGreen));
+          float gex = max(base.g - max(base.r, base.b), 0.0); base.g -= gex * .5; base.r += gex * .12; }   // keep the aerial's summer green from going neon: real meadow is olive                                   // subirrigated meadow: denser and greener, the hay ground
         base = mix(base, base * vec3(.70, .74, .60), (1.0 - smoothstep(30.0, 130.0, vDepth)) * (1.0 - m.g) * (1.0 - uSnow) * .8);   // shaded thatch under the standing grass near the rider
         if (m.g > .04) {   // bare sand: wind ripples up close, damp darker patches, and a scatter of old stems and litter
           float rf = 1.0 - smoothstep(.12, .5, gF); vec2 rp = vW.xz + vec2(vn(vW.xz * .15), vn(vW.xz * .15 + 9.0)) * 3.0;
@@ -967,7 +968,7 @@ function grassLayer(count, tall) {
     strip([[0, .0045], [.85, .0038], [1, 0]], Math.cos(yaw), Math.sin(yaw), ln, b); const t = .8 + .05 * hash(k, 4), o = b + ln * t * t, i0 = P.length / 3;
     P.push(Math.cos(yaw) * o, t, Math.sin(yaw) * o, Math.cos(yaw) * o - Math.sin(yaw) * .03, t + .025, Math.sin(yaw) * o + Math.cos(yaw) * .03, Math.cos(yaw) * (o + .02), t + .06, Math.sin(yaw) * (o + .02)); T.push(.95, .95, .95); I.push(i0, i0 + 1, i0 + 2); }
   else if (tall === 6) for (let b = 0; b < 10; b++) { const yaw = b / 10 * 6.283 + .3 * hash(b, 2); strip([[0, .007], [.5, .006], [1, 0]], Math.cos(yaw), Math.sin(yaw), .55 + .25 * hash(b, 6), .02); }   // sedge tussock
-  else for (let b = 0; b < 5; b++) { const yaw = b / 5 * 6.283 + .7; strip([[0, .017], [.3, .016], [.62, .011], [.85, .006], [1, 0]], Math.cos(yaw), Math.sin(yaw), .36, .05); }
+  else for (let b = 0; b < 5; b++) { const yaw = b / 5 * 6.283 + .7; strip([[0, .012], [.3, .0115], [.62, .008], [.85, .0045], [1, 0]], Math.cos(yaw), Math.sin(yaw), .36, .05); }
   const g = new THREE.InstancedBufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(P, 3));
   g.setAttribute('aT', new THREE.Float32BufferAttribute(T, 1));
@@ -1040,7 +1041,7 @@ function grassLayer(count, tall) {
           sc *= (1.0 + .25 * chop) * (1.0 - .45 * mead);     // sandreed and bluestem stand tall on the dunes, thin out in the meadows
       #endif
       #else
-          sc *= (1.0 - .28 * chop) * (1.0 + .45 * mead);     // sparse on choppy sands, thick in the subirrigated meadows
+          sc *= (1.0 - .28 * chop) * (1.0 + .18 * mead);     // sparse on choppy sands, thick in the subirrigated meadows
           gcol = mix(gcol, mix(vec3(.20, .38, .11), vec3(.30, .47, .15), aRnd.w), mead * .7);
           c = mix(c, vec3(.86, .74, .44), chop * .25);
       #endif
