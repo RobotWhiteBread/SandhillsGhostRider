@@ -6,16 +6,20 @@ It is built from two things: my own photographs of the ranch, and public governm
 
 **Ride it in your browser:** https://robotwhitebread.github.io/SandhillsGhostRider/ (a desktop or laptop works best)
 
-![Nichol Lake with cattle on the bank](docs/nichol_lake.jpg)
+![Source view from Grant's Peak](docs/source_view_peak.jpg)
+
+*Source view: the same hills drawn as lines, one color per data source, with the page's own code scrolling past. Press **View: Scene** in the button bar to switch.*
+
+![Clouds over Grant's Peak](docs/clouds_midday.jpg)
 
 ## What I built, at a glance
 
 | | |
 |---|---|
-| ![Cumulus at midday](docs/clouds_midday.jpg) | ![Golden hour](docs/clouds_golden_hour.jpg) |
-| Clouds with real volume over Grant's Peak | Golden hour from the peak |
-| ![Eastern redcedars](docs/redcedars.jpg) | ![Source view](docs/source_view.jpg) |
-| Eastern redcedars on a grass slope | Source view: the same land as lines, one color per data source |
+| ![The home place](docs/home_place.jpg) | ![Eastern redcedars](docs/redcedars.jpg) |
+| The home place: gravel yard, lawn by the houses, windbreaks | Eastern redcedars on a grass slope |
+| ![Source view at Nichol Lake](docs/source_view.jpg) | ![Source view from Grant's Peak](docs/source_view_peak.jpg) |
+| Source view at Nichol Lake | Source view from Grant's Peak |
 
 - A real place at true scale: about 60 square miles of Sandhills from government elevation data, with the lakes, marshes, roads and trees where they really are.
 - A living prairie: grasses that change by season, wind, weather, cattle, horses, birds on the ponds, windmills and stock tanks, fences and cattle guards.
