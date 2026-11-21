@@ -37,6 +37,7 @@ Press **View: Scene** in the button bar to switch to Source view. The scene drop
 | Green | USGS 3DEP lidar | Ground contours every 2 m, and the trees |
 | Violet | USDA NAIP aerial photo | Dots sized by how bright the photo is at each spot |
 | Cyan | USFWS National Wetlands Inventory | Lakes, ponds and marsh |
+| Orange | USDA NRCS soil survey | Lines where one ecological site meets another |
 | Yellow | County parcel lines on the BLM survey grid | The ranch boundary |
 | Amber | OpenStreetMap roads | County roads and two-tracks |
 | White | Built by hand | Buildings, fences, windmills and animals |
@@ -50,6 +51,7 @@ Many people lose a place that shaped them: a family farm that was sold, a childh
 - **Real ground.** USGS 3DEP lidar elevation at about 5 m over the core of the ranch and 20 m beyond, true scale with no vertical exaggeration.
 - **The aerial view.** USDA NAIP imagery at about 4 m draped over the ground.
 - **Wetlands and water.** All 14,636 mapped USFWS National Wetlands Inventory areas: wet meadows, marshes, ponds, lakes and river channels, each water body at a level taken from the elevation data.
+- **Soils.** The USDA NRCS soil survey of Loup County decides what grows where: thin, tawny cover and blowouts on the Choppy Sands, thick green grass and sedges on the Subirrigated meadows. Inside the fences the ground is about 51% Sands, 17% Choppy Sands and 32% meadow, lowland and wetland sites.
 - **Trees.** About 13,600 trees found in the aerial photo: eastern redcedar windbreaks, and cottonwoods on wet ground.
 - **Grass.** Little bluestem, sand bluestem, prairie sandreed and the rest, changing with the seasons, plus sedges and cattails in the marshes.
 - **The rider.** A ghost horse that walks, trots and gallops (rigged horse model by Quaternius, CC0), and a rider who moves with it.
@@ -130,6 +132,7 @@ All public data, used as published:
 - USGS 3D Elevation Program (3DEP), elevation
 - USDA National Agriculture Imagery Program (NAIP), aerial imagery via The National Map
 - US Fish and Wildlife Service National Wetlands Inventory
+- USDA Natural Resources Conservation Service, Soil Survey Geographic Database (SSURGO), Loup County, Nebraska
 - USGS National Hydrography Dataset and US Topo
 - NOAA National Geodetic Survey, survey marks (station GRANT)
 - Bureau of Land Management PLSS, and Loup County parcel lines (boundaries only)
