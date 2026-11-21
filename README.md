@@ -4,7 +4,36 @@ A ghost horse and rider on the real ground of Gracie Creek Ranch, near Burwell i
 
 It is built from two things: my own photographs of the ranch, and public government data. The government data gives the true shape of the land, the wetlands, the water and the trees. My photographs give it its look: the grass and sky colors were measured month by month from about a thousand of my landscape photos taken there, and the scene is tuned to match them.
 
-![Overhead map around the home place](docs/overhead_map.jpg)
+**Ride it in your browser:** https://robotwhitebread.github.io/SandhillsGhostRider/ (a desktop or laptop works best)
+
+![Nichol Lake with cattle on the bank](docs/nichol_lake.jpg)
+
+## What I built, at a glance
+
+| | |
+|---|---|
+| ![Cumulus at midday](docs/clouds_midday.jpg) | ![Golden hour](docs/clouds_golden_hour.jpg) |
+| Clouds with real volume over Grant's Peak | Golden hour from the peak |
+| ![Eastern redcedars](docs/redcedars.jpg) | ![Source view](docs/source_view.jpg) |
+| Eastern redcedars on a grass slope | Source view: the same land as lines, one color per data source |
+
+- A real place at true scale: about 60 square miles of Sandhills from government elevation data, with the lakes, marshes, roads and trees where they really are.
+- A living prairie: grasses that change by season, wind, weather, cattle, horses, birds on the ponds, windmills and stock tanks, fences and cattle guards.
+- A real sky: volumetric clouds, sun and shadows through the day, and the true stars, Moon and planets over the ranch at night.
+- One web page, no install. It was built with AI support and checked against my own photos and memory of the place.
+
+## Source view
+
+Press **View: Scene** in the button bar to switch to Source view. The scene drops to black and each data source is drawn as lines in its own color, while the page's own code scrolls past on the right. You can keep riding and flying in this view.
+
+| Color | Source | What it draws |
+|---|---|---|
+| Green | USGS 3DEP lidar | Ground contours every 2 m, and the trees |
+| Violet | USDA NAIP aerial photo | Dots sized by how bright the photo is at each spot |
+| Cyan | USFWS National Wetlands Inventory | Lakes, ponds and marsh |
+| Yellow | County parcel lines on the BLM survey grid | The ranch boundary |
+| Amber | OpenStreetMap roads | County roads and two-tracks |
+| White | Built by hand | Buildings, fences, windmills and animals |
 
 ## The idea
 
@@ -21,6 +50,9 @@ Many people lose a place that shaped them: a family farm that was sold, a childh
 - **Flight and tours.** The rider can fly, and there are guided tours on the ground or from the sky.
 - **The real sky.** About 2,300 stars and the Moon and planets placed where they are over the ranch tonight, and a stop on Grant's Peak to watch them.
 - **Memories.** Photographs fade in and out as you ride past. This public version carries only a few of mine.
+- **Clouds and light.** Cumulus with real volume that cast moving shadows, lakes that mirror the sky, light shafts at low sun.
+- **Ranch life.** Cattle along Nichol Lake, horses near the home place, windmills and stock tanks, barbed wire fences, gravel roads with cattle guards, and ducks and shorebirds that flush when the rider comes close.
+- **Homesteaders.** The people who first patented this ground, from the BLM General Land Office records.
 - **More.** A red-tailed hawk, a drive up Gracie Creek Avenue from Highway 96, parcel boundaries from the county records, and an overhead map that clicks in and out.
 
 | | |
@@ -58,7 +90,7 @@ The ground is not invented. These images come straight from the public data used
 | ![Elevation](docs/data_elevation.jpg) | ![Lidar](docs/data_lidar.jpg) |
 | USGS 3DEP elevation, shaded | 1 m lidar detail near the home place compared with the 5 m ground |
 | ![Wetlands and trees](docs/data_wetlands_trees.jpg) | ![Photo colors](docs/data_photo_colors.jpg) |
-| National Wetlands Inventory plus trees found in the NAIP aerial | Grass and sky colors measured from my own photos, by month |
+| National Wetlands Inventory plus trees found in the NAIP aerial | The palette: colors measured from my photos by month, the field guide, the sky through the day, and the Source view |
 
 ## Run it
 
@@ -95,6 +127,7 @@ All public data, used as published:
 - USGS National Hydrography Dataset and US Topo
 - NOAA National Geodetic Survey, survey marks (station GRANT)
 - Bureau of Land Management PLSS, and Loup County parcel lines (boundaries only)
+- Bureau of Land Management General Land Office Records, original land patents
 - OpenStreetMap contributors, roads (ODbL)
 - Star catalog from d3-celestial (Olaf Frohn, BSD), planet positions from the JPL approximate orbital elements
 - three.js (MIT), Quaternius animal models (CC0)
