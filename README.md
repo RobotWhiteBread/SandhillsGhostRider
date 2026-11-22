@@ -151,6 +151,14 @@ All public data, used as published:
 
 See [LICENSE](LICENSE) for the full terms.
 
+## Passing On the Place
+
+A companion page: a plain guide to farm and ranch estate planning, written for the people on an operation who usually get left out of the planning. It covers the basics, why good plans do not get made, the family side that is not about paperwork, a ten step roadmap of documents to ask to see, and where to get help.
+
+Read it: https://robotwhitebread.github.io/SandhillsGhostRider/passing-on-the-place.html
+
+It is general information, not legal, tax or financial advice.
+
 ## Live version
 
 https://robotwhitebread.github.io/SandhillsGhostRider/
