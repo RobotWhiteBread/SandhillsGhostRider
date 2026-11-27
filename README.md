@@ -116,13 +116,24 @@ A desktop graphics card is recommended. A phone version is planned.
 
 ## Controls
 
+Everything works from the keyboard, a trackpad or the two button pads on screen. No mouse needed. Press **?** in the scene for this list.
+
 | | |
 |---|---|
 | A / D or arrow keys | Steer |
-| W / S | Pace: stand, walk, trot, gallop |
+| W / S, or 1 2 3 4 | Pace: stand, walk, trot, gallop |
+| Space | Stop or go |
 | F | Fly or land; Q climbs, Z drops |
-| M | Map. Double-click the map to ride or fly there |
-| Drag | Look around (rider's eye) or orbit the camera |
+| M | Map. Arrow keys move it. Click to send the rider there, double-click to jump there |
+| G | Find the rider on the map |
+| Shift + arrow keys | Turn and tilt the view |
+| [ and ] , Page Up and Page Down | Turn and tilt the view |
+| + and - , scroll or pinch | Zoom |
+| Drag | Look around, orbit the camera, or move the map |
+| C | Next camera |
+| R | Reset the view |
+| H | Start over at the home place |
+| Esc | Close a panel or the map |
 | Buttons | Camera views, tours, stars on Grant's Peak, time of day, season, sound, photos |
 
 ## Data sources

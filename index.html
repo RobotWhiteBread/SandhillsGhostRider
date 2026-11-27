@@ -16,6 +16,20 @@
   #hint{position:fixed;left:0;right:0;bottom:64px;text-align:center;font-size:12px;opacity:.7;pointer-events:none;text-shadow:0 1px 6px #000;transition:opacity 1s}
   .panel{position:fixed;inset:0;background:rgba(8,8,10,.86);display:none;align-items:center;justify-content:center;z-index:5}
   .panel.on{display:flex}
+  .pad{position:fixed;bottom:120px;display:grid;gap:5px;z-index:4;opacity:.72;transition:opacity .25s}
+  .pad:hover,.pad:active{opacity:1}
+  .pad button{padding:0;width:40px;height:38px;border-radius:9px;font-size:16px;line-height:1;touch-action:none}
+  .pad button.w{grid-column:span 2;width:auto;font-size:11.5px;letter-spacing:.02em}
+  .pad .cap{grid-column:1/-1;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;text-align:center;text-shadow:0 1px 4px #000;pointer-events:none}
+  #vpad{right:12px;grid-template-columns:repeat(4,40px)}
+  #rpad{left:12px;grid-template-columns:repeat(4,40px)}
+  #keysBox{max-width:560px;max-height:84vh;overflow:auto;margin:16px;padding:20px 22px;background:rgba(30,26,20,.92);border:1px solid rgba(243,234,216,.25);border-radius:10px}
+  #keysBox h2{margin:0 0 4px;font-weight:normal;letter-spacing:.1em;text-transform:uppercase;font-size:17px}
+  #keysBox h3{margin:16px 0 4px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.7;font-weight:normal}
+  #keysBox table{border-collapse:collapse;font-size:14px;line-height:1.5}
+  #keysBox td{padding:1px 14px 1px 0;vertical-align:top}
+  #keysBox td:first-child{white-space:nowrap;color:#ffe9b8;width:190px}
+  #keysP{z-index:30}
   #guideBox{max-width:560px;max-height:84vh;overflow:auto;margin:16px;padding:20px 22px;background:rgba(30,26,20,.92);border:1px solid rgba(243,234,216,.25);border-radius:10px;-webkit-user-select:text;user-select:text}
   #guideBox h2{margin:0 0 4px;font-weight:normal;letter-spacing:.1em;text-transform:uppercase;font-size:17px}
   #guideBox h3{margin:18px 0 6px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.7;font-weight:normal}
@@ -58,6 +72,55 @@
   <button id="bGfx">Graphics: Cinematic</button>
   <button id="bWx">Weather: Clear</button>
   <button id="bSunfl">Sunflower year: Off</button>
+  <button id="bKeys">Controls</button>
+</div>
+<div id="vpad" class="pad">
+  <div class="cap">View</div>
+  <button data-v="tl" title="Turn the view left  [">&#8634;</button><button data-v="up" title="Up">&#8593;</button><button data-v="tr" title="Turn the view right  ]">&#8635;</button><button data-v="zi" title="Zoom in  +">+</button>
+  <button data-v="lf" title="Left">&#8592;</button><button data-v="dn" title="Down">&#8595;</button><button data-v="rt" title="Right">&#8594;</button><button data-v="zo" title="Zoom out  -">&#8722;</button>
+  <button data-v="pu" title="Tilt up  Page Up">&#9651;</button><button data-v="pd" title="Tilt down  Page Down">&#9661;</button><button id="vFind" class="w" title="Show the rider on the map  G">Find rider</button>
+  <button id="vReset" class="w" title="Reset this view  R">Reset view</button><button id="vOver" class="w" title="Back to the start  H">Start over</button>
+</div>
+<div id="rpad" class="pad">
+  <div class="cap">Rider</div>
+  <button data-r="l" title="Steer left  A">&#8592;</button><button data-r="r" title="Steer right  D">&#8594;</button><button data-r="slow" title="Slower  S">&#8722;</button><button data-r="fast" title="Faster  W">+</button>
+  <button id="rStop" class="w" title="Stop or go  Space">Stop / go</button><button id="rCam" class="w" title="Next camera  C">Camera</button>
+</div>
+<div id="keysP" class="panel"><button class="close" id="kClose">Close</button>
+  <div id="keysBox">
+    <h2>Controls</h2>
+    <p style="margin:4px 0 0;font-size:13px;opacity:.75;font-style:italic">Everything works from the keyboard, a trackpad or the two button pads. No mouse needed.</p>
+    <h3>The view</h3>
+    <table>
+      <tr><td>Shift + arrow keys</td><td>Turn and tilt the view</td></tr>
+      <tr><td>[ and ]</td><td>Turn the view left and right</td></tr>
+      <tr><td>Page Up, Page Down</td><td>Tilt</td></tr>
+      <tr><td>+ and -</td><td>Zoom in and out</td></tr>
+      <tr><td>Two-finger scroll, pinch</td><td>Zoom. Swipe sideways to turn</td></tr>
+      <tr><td>C</td><td>Next camera</td></tr>
+      <tr><td>R</td><td>Reset this view</td></tr>
+    </table>
+    <h3>The map</h3>
+    <table>
+      <tr><td>M</td><td>Open or close the map</td></tr>
+      <tr><td>Arrow keys</td><td>Move the map</td></tr>
+      <tr><td>G</td><td>Find the rider</td></tr>
+      <tr><td>Click, double-click</td><td>Send the rider there, or jump there</td></tr>
+    </table>
+    <h3>The rider</h3>
+    <table>
+      <tr><td>A and D, or arrows</td><td>Steer</td></tr>
+      <tr><td>W and S, or 1 2 3 4</td><td>Pace: stand, walk, trot, gallop</td></tr>
+      <tr><td>Space</td><td>Stop or go</td></tr>
+      <tr><td>F, then Q and Z</td><td>Fly or land, climb and drop</td></tr>
+      <tr><td>H</td><td>Start over at the home place</td></tr>
+    </table>
+    <h3>Anywhere</h3>
+    <table>
+      <tr><td>?</td><td>This list</td></tr>
+      <tr><td>Esc</td><td>Close a panel, or the map</td></tr>
+    </table>
+  </div>
 </div>
 <input id="file" type="file" accept="image/*" multiple style="display:none">
 <div id="photoView" class="panel"><button class="close" id="pClose">Close</button><img id="pImg" alt="Your photo"></div>
@@ -2009,19 +2072,19 @@ canvas.addEventListener('pointerdown', e => { ptrs.set(e.pointerId, [e.clientX, 
 canvas.addEventListener('pointermove', e => {
   const p = ptrs.get(e.pointerId); if (!p) return;
   const dx = e.clientX - p[0], dy = e.clientY - p[1]; p[0] = e.clientX; p[1] = e.clientY; moved += Math.abs(dx) + Math.abs(dy);
-  if (ptrs.size === 1 && moved > 6) {
+  if (ptrs.size === 1 && moved > 6) { VIN.tw = null;
     if (camMode === 5) {
       if (btn === 2 || shift) { ex.yaw -= dx * .005; ex.pitch = Math.min(1.5, Math.max(.12, ex.pitch + dy * .004)); }
       else { const sc = ex.dist * 2 * Math.tan(camera.fov * Math.PI / 360) / innerHeight, cy = Math.cos(ex.yaw), sy = Math.sin(ex.yaw), up = dy * sc / Math.max(.3, Math.sin(ex.pitch));
-        ex.x += -cy * dx * sc + sy * up; ex.z += sy * dx * sc + cy * up;
+        ex.x += -cy * dx * sc - sy * up; ex.z += sy * dx * sc - cy * up;
         ex.x = Math.min(X1 - 200, Math.max(X0 + 200, ex.x)); ex.z = Math.min(Z1 - 200, Math.max(Z0 + 200, ex.z)); }
     } else if (camMode === 1) { eye.yaw = Math.max(-2.6, Math.min(2.6, eye.yaw - dx * .004)); eye.pitch = Math.max(-1.0, Math.min(.6, eye.pitch - dy * .003)); eye.t = performance.now(); }
     else if (camMode === 6) { pano.yaw += dx * .004; pano.pitch = Math.min(.6, Math.max(-.6, pano.pitch + dy * .003)); }
-    else { if (camMode < 3 && moved > 24) setCam(3); if (camMode === 3) { orbit.yaw -= dx * .006; orbit.pitch = Math.min(1.3, Math.max(.03, orbit.pitch + dy * .005)); } }
+    else { if (camMode < 3 && moved > 24) toOrbit(); if (camMode === 3) { VIN.t = performance.now(); orbit.yaw -= dx * .006; orbit.pitch = Math.min(1.3, Math.max(.03, orbit.pitch + dy * .005)); } }
   }
   else if (ptrs.size === 2) { const [a, b] = [...ptrs.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]);
     if (pinch0) { if (camMode === 5) ex.dist = Math.min(24000, Math.max(60, ex.dist * pinch0 / d)); else orbit.dist = Math.min(4000, Math.max(4, orbit.dist * pinch0 / d)); }
-    pinch0 = d; if (camMode < 3) setCam(3); }
+    pinch0 = d; VIN.tw = null; if (camMode < 3) toOrbit(); }
 });
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
 function pickGround(cx, cy) {
@@ -2041,13 +2104,22 @@ function endPtr(e) {
 }
 canvas.addEventListener('pointerup', endPtr); canvas.addEventListener('pointercancel', endPtr);
 canvas.addEventListener('dblclick', e => { if (camMode === 1) { const g = pickGround(e.clientX, e.clientY); if (g && inRange(g[0], g[1])) { ride.tx = g[0]; ride.tz = g[1]; ride.mode = 'goto'; ride.ret = false; if (gear < 1) setPace(1); setRideLabel(); } return; } if (camMode !== 5) return; const g = pickGround(e.clientX, e.clientY); if (g && inRange(g[0], g[1])) { ride.x = g[0]; ride.z = g[1]; ride.tx = g[0]; ride.tz = g[1]; ride.mode = 'free'; ride.ret = false; setPace(0); setRideLabel(); } });
-canvas.addEventListener('wheel', e => { e.preventDefault(); const f = 1 + Math.sign(e.deltaY) * .12;
-  if (camMode === 5) ex.dist = Math.min(24000, Math.max(60, ex.dist * f)); else if (camMode === 1) { camera.fov = Math.min(85, Math.max(28, camera.fov * f)); camera.updateProjectionMatrix(); } else { if (camMode < 3) setCam(3); orbit.dist = Math.min(4000, Math.max(4, orbit.dist * f)); } }, { passive: false });
-addEventListener('keydown', e => { const k = e.key.toLowerCase(); keys[k] = true; if (k === 'm') toggleMap(); if (k === 'f' && !e.repeat) { if (tour.on) endTour(); setFly(!ride.air); if (ride.mode === 'trail' && ride.air) { ride.mode = 'free'; setRideLabel(); } } if (!e.repeat && (k === 'arrowup' || k === 'w')) setPace(gear + 1); if (!e.repeat && (k === 'arrowdown' || k === 's')) setPace(gear - 1); if ('1234'.includes(k) && k.length === 1) setPace(+k - 1);
+canvas.addEventListener('wheel', e => { e.preventDefault(); const u = e.deltaMode === 1 ? 33 : e.deltaMode === 2 ? 300 : 1, dx = e.deltaX * u, dy = e.deltaY * u; VIN.t = performance.now(); VIN.tw = null;
+  if (!e.ctrlKey && Math.abs(dx) > Math.abs(dy) * 1.5) { viewTurn(Math.max(-60, Math.min(60, dx)) * .0035); return; }
+  VIN.zimp = Math.max(-1.6, Math.min(1.6, VIN.zimp - Math.max(-120, Math.min(120, dy)) * (e.ctrlKey ? .012 : .0017))); }, { passive: false });
+addEventListener('keydown', e => { if (e.ctrlKey || e.metaKey || e.altKey) return; const k = e.key.toLowerCase(); keys[k] = true;
+  const arrow = k.startsWith('arrow'), view = arrow && (e.shiftKey || camMode === 5);
+  if (arrow || k === ' ' || k === 'pageup' || k === 'pagedown') e.preventDefault();
+  if (!e.repeat) { if (k === '?' || k === '/') return keysPanel(); if (k === 'escape') return escAll(); }
+  if (document.querySelector('.panel.on')) return;
+  if (view || '[]{}-_=+'.includes(k) || k === 'pageup' || k === 'pagedown') { VIN.t = performance.now(); VIN.tw = null; return; }
+  if (k === 'm') toggleMap(); if (k === 'f' && !e.repeat) { if (tour.on) endTour(); setFly(!ride.air); if (ride.mode === 'trail' && ride.air) { ride.mode = 'free'; setRideLabel(); } } if (!e.repeat && (k === 'arrowup' || k === 'w')) setPace(gear + 1); if (!e.repeat && (k === 'arrowdown' || k === 's')) setPace(gear - 1); if ('1234'.includes(k) && k.length === 1) setPace(+k - 1);
+  if (!e.repeat) { if (k === 'r') resetView(); if (k === 'h') startOver(); if (k === 'g') findRider(); if (k === 'c') setCam(NEXTCAM[camMode]); if (k === ' ') stopGo(); }
   if (['arrowleft', 'arrowright', 'a', 'd'].includes(k) && tour.on) endTour();
   if (['arrowleft', 'arrowright', 'a', 'd', 'w', 's', 'arrowup', 'arrowdown'].includes(k) && stars.on) leaveStars();
-  if (['arrowleft', 'arrowright', 'a', 'd'].includes(k) || ((k === 'arrowup' || k === 'arrowdown') && ride.mode !== 'trail')) { if (ride.mode !== 'free') { ride.mode = 'free'; ride.ret = false; setRideLabel(); } if (k.startsWith('arrow')) e.preventDefault(); } });
-addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
+  if (['arrowleft', 'arrowright', 'a', 'd'].includes(k) || ((k === 'arrowup' || k === 'arrowdown') && ride.mode !== 'trail')) { if (ride.mode !== 'free') { ride.mode = 'free'; ride.ret = false; setRideLabel(); } } });
+addEventListener('keyup', e => { const k = e.key.toLowerCase(); keys[k] = false; if (k === 'shift') for (const c of '{}_+?') keys[c] = false; });
+addEventListener('blur', () => { for (const k in keys) keys[k] = false; for (const k in VIN.pad) VIN.pad[k] = false; });
 function setRideLabel() { document.getElementById('bRide').textContent = 'Ride: ' + (ride.mode === 'tour' ? 'Touring' : ride.mode === 'trail' ? 'Trail' : ride.ret ? 'Heading back' : ride.mode === 'free' ? 'Free' : 'To the spot you picked'); }
 function showHint(t, ms) { const h = document.getElementById('hint'); h.textContent = t; h.style.opacity = .85; clearTimeout(showHint.t); showHint.t = setTimeout(() => h.style.opacity = 0, ms || 12000); }
 function setCam(i) { camMode = i; camSnap = true; document.getElementById('bCam').textContent = 'Camera: ' + CAMS[i]; camera.fov = i === 2 ? 26 : i === 1 ? 68 : i === 4 ? 62 : i === 5 ? 45 : i === 6 ? 62 : 55; camera.updateProjectionMatrix();
@@ -2055,8 +2127,58 @@ function setCam(i) { camMode = i; camSnap = true; document.getElementById('bCam'
   if (i === 1) { eye.yaw = 0; eye.pitch = -.2; showHint('You are in the saddle on Bar B. Drag to look around. A and D steer, W and S change pace. Double-click a spot on the ground to ride there. Scroll to zoom.', 14000); }
   document.getElementById('bMap').textContent = i === 5 ? 'Close map' : 'Map';
   if (i === 6) showHint("Standing at the survey marker on Grant's Peak. Drag to look around. The home place is straight ahead to the south.", 12000);
-  if (i === 5) showHint('Drag to move. Scroll or pinch to zoom. Shift-drag to tilt and turn. Click a spot to send the rider there, double-click to jump there.', 16000); }
-function toggleMap() { if (camMode !== 5) { prevCam = camMode; setCam(5); } else setCam(prevCam === 4 ? 0 : prevCam); }
+  if (VIN.place) VIN.place();
+  if (i === 5) showHint('Drag or use the arrow keys to move. Scroll or pinch to zoom. Shift-drag, Shift with the arrows, or the View buttons tilt and turn. Click a spot to send the rider there, double-click to jump there. R resets the view.', 16000); }
+function toggleMap() { VIN.tw = null; if (camMode !== 5) { prevCam = camMode; setCam(5); } else setCam(prevCam === 4 ? 0 : prevCam); }
+/* ---------- view and rider controls without a mouse: keys, trackpad, button pads ---------- */
+const VIN = { pad: {}, sm: { turn: 0, tilt: 0, zoom: 0, px: 0, pz: 0 }, zimp: 0, t: 0, tw: null, lastGear: 2 };
+const clampN = (v, a, b) => Math.min(b, Math.max(a, v));
+function toOrbit() { if (camMode === 3) return; const dx = camera.position.x - P.x, dy = camera.position.y - (P.y + 1.5), dz = camera.position.z - P.z, d = Math.hypot(dx, dy, dz), keep = camMode === 0;
+  setCam(3); if (keep && d > 2) { orbit.yaw = Math.atan2(dx, dz); orbit.pitch = clampN(Math.asin(dy / d), .03, 1.3); orbit.dist = clampN(d, 4, 4000); } }
+function viewTurn(a) { if (camMode === 5) ex.yaw += a; else if (camMode === 1) { eye.yaw = clampN(eye.yaw - a, -2.6, 2.6); eye.t = performance.now(); } else if (camMode === 6) pano.yaw -= a; else if (camMode !== 4) { toOrbit(); orbit.yaw += a; } }
+function viewTilt(a) { if (camMode === 5) ex.pitch = clampN(ex.pitch + a, .12, 1.5); else if (camMode === 1) { eye.pitch = clampN(eye.pitch + a, -1, .6); eye.t = performance.now(); } else if (camMode === 6) pano.pitch = clampN(pano.pitch + a, -.6, .6); else if (camMode !== 4) { toOrbit(); orbit.pitch = clampN(orbit.pitch + a, .03, 1.3); } }
+function viewZoom(z) { if (camMode === 5) ex.dist = clampN(ex.dist * Math.exp(-z), 60, 24000); else if (camMode === 1 || camMode === 6) { camera.fov = clampN(camera.fov * Math.exp(-z), 28, 85); camera.updateProjectionMatrix(); } else if (camMode !== 4) { toOrbit(); orbit.dist = clampN(orbit.dist * Math.exp(-z), 4, 4000); } }
+function viewPan(r, u) { const c = Math.cos(ex.yaw), sn = Math.sin(ex.yaw); ex.x = clampN(ex.x + c * r - sn * u, X0 + 200, X1 - 200); ex.z = clampN(ex.z - sn * r - c * u, Z0 + 200, Z1 - 200); }
+function viewStep(dt) { const p = VIN.pad, sm = VIN.sm, map = camMode === 5, sh = keys.shift, on = v => v ? 1 : 0, typing = !!document.querySelector('.panel.on');
+  const aL = !typing && keys.arrowleft, aR = !typing && keys.arrowright, aU = !typing && keys.arrowup, aD = !typing && keys.arrowdown;
+  let turn = on(p.tr || keys[']'] || keys['}']) - on(p.tl || keys['['] || keys['{']), tilt = on(p.pu || keys.pageup) - on(p.pd || keys.pagedown), zoom = on(p.zi || keys['='] || keys['+']) - on(p.zo || keys['-'] || keys['_']), px = 0, pz = 0;
+  if (sh) { turn += on(aR) - on(aL); tilt += on(aU) - on(aD); } else if (map) { px += on(aR) - on(aL); pz += on(aU) - on(aD); }
+  if (map) { px += on(p.rt) - on(p.lf); pz += on(p.up) - on(p.dn); } else { turn += on(p.rt) - on(p.lf); tilt += on(p.up) - on(p.dn); }
+  if (turn || tilt || zoom || px || pz) { VIN.t = performance.now(); VIN.tw = null; }
+  const k = Math.min(1, dt * 9); sm.turn += (turn - sm.turn) * k; sm.tilt += (tilt - sm.tilt) * k; sm.zoom += (zoom - sm.zoom) * k; sm.px += (px - sm.px) * k; sm.pz += (pz - sm.pz) * k;
+  const zs = VIN.zimp * Math.min(1, dt * 11); VIN.zimp -= zs; if (Math.abs(VIN.zimp) < 1e-4) VIN.zimp = 0;
+  if (Math.abs(sm.turn) > .004) viewTurn(sm.turn * dt * 1.25); if (Math.abs(sm.tilt) > .004) viewTilt(sm.tilt * dt * .75);
+  const z = zs + (Math.abs(sm.zoom) > .004 ? sm.zoom * dt * 1.5 : 0); if (z) viewZoom(z);
+  if (map && (Math.abs(sm.px) > .004 || Math.abs(sm.pz) > .004)) viewPan(sm.px * ex.dist * .75 * dt, sm.pz * ex.dist * .75 * dt);
+  if (VIN.tw) { const tw = VIN.tw, kk = 1 - Math.exp(-dt * 4.5); let far = 0; for (const key in tw.to) { const d = tw.to[key] - tw.o[key]; tw.o[key] += d * kk; far = Math.max(far, Math.abs(d) / (tw.sc[key] || 1)); } if (far < .002) { for (const key in tw.to) tw.o[key] = tw.to[key]; VIN.tw = null; } } }
+function tween(o, to, sc) { if ('yaw' in to) o.yaw = Math.atan2(Math.sin(o.yaw - to.yaw), Math.cos(o.yaw - to.yaw)) + to.yaw; VIN.tw = { o, to, sc: sc || {} }; VIN.zimp = 0; }
+function resetView() { if (camMode === 5) tween(ex, { x: VEC.rc[0], z: VEC.rc[1], yaw: 0, pitch: 1.0, dist: 17000 }, { x: 1000, z: 1000, dist: 5000 });
+  else if (camMode === 1) { tween(eye, { yaw: 0, pitch: -.2 }); camera.fov = 68; camera.updateProjectionMatrix(); }
+  else if (camMode === 6) { tween(pano, { yaw: 0, pitch: -.03 }); camera.fov = 62; camera.updateProjectionMatrix(); }
+  else if (camMode === 3) tween(orbit, { yaw: 2.4, pitch: .28, dist: 13 }, { dist: 10 });
+  else { orbit.yaw = 2.4; orbit.pitch = .28; orbit.dist = 13; setCam(camMode); }
+  showHint('View reset.', 2500); }
+function findRider() { if (camMode !== 5) { prevCam = camMode; setCam(5); } tween(ex, { x: clampN(P.x, X0 + 200, X1 - 200), z: clampN(P.z, Z0 + 200, Z1 - 200), dist: Math.min(ex.dist, 2200) }, { x: 1000, z: 1000, dist: 2000 }); showHint('The rider is under the beam of light.', 4000); }
+function stopGo() { if (tour.on) endTour(); if (gear > 0) { VIN.lastGear = gear; setPace(0); } else setPace(VIN.lastGear || 2); }
+function startOver() { VIN.tw = null; VIN.zimp = 0; if (tour.on) endTour(); leaveStars(); if (ride.air) setFly(false); for (const el of document.querySelectorAll('.panel.on')) el.classList.remove('on'); document.getElementById('tourPick').style.display = 'none';
+  ride.mode = 'trail'; ride.ret = false; s = 0.02; ride.y = null; ride.v = 3.6; setPace(2); setRideLabel();
+  timeMode = 0; document.getElementById('bTime').textContent = 'Time: Auto';
+  orbit.yaw = 2.4; orbit.pitch = .28; orbit.dist = 13; ex.x = VEC.rc[0]; ex.z = VEC.rc[1]; ex.yaw = 0; ex.pitch = 1.0; ex.dist = 17000; pano.yaw = 0; pano.pitch = -.03; setCam(0);
+  showHint('Back at the start: on the trail at the home place, following the rider.', 6000); }
+function steerStart() { if (tour.on) endTour(); if (stars.on) leaveStars(); if (ride.mode !== 'free') { ride.mode = 'free'; ride.ret = false; setRideLabel(); } }
+function keysPanel() { document.getElementById('keysP').classList.toggle('on'); }
+function escAll() { const open = document.querySelector('.panel.on'), tp = document.getElementById('tourPick'); if (open) open.classList.remove('on'); else if (tp.style.display === 'flex') tp.style.display = 'none'; else if (camMode === 5) toggleMap(); }
+{ const hold = (el, down, up) => { el.addEventListener('pointerdown', e => { e.preventDefault(); try { el.setPointerCapture(e.pointerId); } catch (_) {} down(); }); for (const t of ['pointerup', 'pointercancel', 'lostpointercapture']) el.addEventListener(t, up); el.addEventListener('contextmenu', e => e.preventDefault()); };
+  for (const b of document.querySelectorAll('#vpad [data-v]')) hold(b, () => { VIN.pad[b.dataset.v] = true; }, () => { VIN.pad[b.dataset.v] = false; });
+  for (const b of document.querySelectorAll('#rpad [data-r]')) { const a = b.dataset.r;
+    if (a === 'l' || a === 'r') hold(b, () => { steerStart(); VIN.pad['s' + a] = true; }, () => { VIN.pad['s' + a] = false; });
+    else b.onclick = () => { if (stars.on) leaveStars(); setPace(gear + (a === 'fast' ? 1 : -1)); }; }
+  document.getElementById('vReset').onclick = resetView; document.getElementById('vOver').onclick = startOver; document.getElementById('vFind').onclick = findRider;
+  document.getElementById('rStop').onclick = stopGo; document.getElementById('rCam').onclick = () => setCam(NEXTCAM[camMode]);
+  document.getElementById('bKeys').onclick = keysPanel; document.getElementById('kClose').onclick = keysPanel; document.getElementById('keysP').onclick = e => { if (e.target.id === 'keysP') keysPanel(); };
+  document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('button'); if (b) b.blur(); });
+  const place = () => { const h = document.getElementById('bar').offsetHeight; document.getElementById('vpad').style.bottom = (h + 14) + 'px'; document.getElementById('rpad').style.bottom = Math.max(h + 64, 152) + 'px'; document.getElementById('vpad').style.right = camMode === 5 ? '298px' : '12px'; }; VIN.place = place;
+  place(); addEventListener('resize', place); setTimeout(place, 600); }
 
 /* ---------- UI ---------- */
 const $ = id => document.getElementById(id);
@@ -2364,7 +2486,7 @@ function frame() {
   ride.v += (ride.vt - ride.v) * Math.min(1, dt * 1.5);
   if (ride.mode === 'trail') { s = (s + ride.v * dt / trailLen) % 1; trail.getPointAt(s, P); trail.getTangentAt(s, F); F.y = 0; F.normalize(); ride.x = P.x; ride.z = P.z; ride.h = Math.atan2(F.x, F.z); ride.vt = spd(gear); }
   else {
-    if (ride.mode === 'free') { if (keys.arrowleft || keys.a) ride.h += 1.4 * dt; if (keys.arrowright || keys.d) ride.h -= 1.4 * dt; ride.vt = spd(gear); }
+    if (ride.mode === 'free') { const av = keys.shift || camMode === 5, st = ((keys.a || VIN.pad.sl || (!av && keys.arrowleft)) ? 1 : 0) - ((keys.d || VIN.pad.sr || (!av && keys.arrowright)) ? 1 : 0); ride.turn = (ride.turn || 0) + (st - (ride.turn || 0)) * Math.min(1, dt * 7); ride.h += ride.turn * 1.4 * dt; ride.vt = spd(gear); }
     else { if (ride.mode === 'tour') { const st = tour.stops[Math.min(tour.i, tour.stops.length - 1)]; ride.tx = st.x; ride.tz = st.z; }
       const dx = ride.tx - ride.x, dz = ride.tz - ride.z, d = Math.hypot(dx, dz), b = Math.atan2(dx, dz); let wh;
       if (ride.mode === 'goto') { wh = b; ride.vt = spd(Math.max(gear, 1)); if (ride.air && d < 500) ride.vt = Math.min(ride.vt, 8 + d * .12); if (d < (ride.air ? 30 : 12)) { if (ride.ret) { ride.mode = 'trail'; ride.ret = false; } else { ride.mode = 'free'; setPace(0); } setRideLabel(); if (stars.pending) arriveStars(); } }
@@ -2408,6 +2530,7 @@ function frame() {
   wGeo.attributes.position.needsUpdate = wGeo.attributes.aAge.needsUpdate = true;
 
   // camera
+  viewStep(dt);
   if (camMode === 0) { want.copy(P).addScaledVector(F, -9.5).addScaledVector(Sd, 4).setY(P.y + 3.4); look.copy(P).addScaledVector(F, 2.5).setY(P.y + 1.7); }
   else if (camMode === 1) { // through the rider's eyes, over the horse's neck and ears
     if (stars.on) { eye.t = performance.now(); if (!ptrs.size) { eye.pitch += (.5 - eye.pitch) * Math.min(1, dt * .25); eye.yaw = Math.atan2(Math.sin(eye.yaw + dt * .018), Math.cos(eye.yaw + dt * .018)); } }
@@ -2431,7 +2554,7 @@ function frame() {
     const pick = opts.find(o => o[0] / mpp < 240) || opts[opts.length - 1];
     document.getElementById('scaleBar').style.width = (pick[0] / mpp).toFixed(0) + 'px'; document.getElementById('scaleTxt').textContent = pick[1] + ' · rider at ' + Math.round((P.y + 700) * 3.28084).toLocaleString() + ' ft';
   }
-  else { if (tour.on && camMode === 3 && !ptrs.size) { if (tour.wait > 0) orbit.yaw += dt * .12; else { let dy = ride.h + Math.PI - orbit.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); orbit.yaw += dy * Math.min(1, dt * .6); } }
+  else { if (tour.on && camMode === 3 && !ptrs.size && performance.now() - VIN.t > 2500) { if (tour.wait > 0) orbit.yaw += dt * .12; else { let dy = ride.h + Math.PI - orbit.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); orbit.yaw += dy * Math.min(1, dt * .6); } }
     const cp = Math.cos(orbit.pitch); want.set(P.x + Math.sin(orbit.yaw) * cp * orbit.dist, P.y + 1.5 + Math.sin(orbit.pitch) * orbit.dist, P.z + Math.cos(orbit.yaw) * cp * orbit.dist); look.copy(P).setY(P.y + 1.5); }
   if (window.__camHook) window.__camHook(want, look, P);
   if (camMode !== 1) want.y = Math.max(want.y, Math.max(hAt(want.x, want.z), WATER) + 1.2);
@@ -2499,7 +2622,7 @@ function frame() {
   renderFrame(performance.now());
   requestAnimationFrame(frame);
 }
-window.__dbg = { get CODEVIEW() { return CODEVIEW; }, FENCES, snap: () => { camSnap = true; }, HORSES, MILLS, DUCKS, GUARDS, TRAIL, PETS, LAYERS, setPace, topo: () => document.getElementById('bTopo').click(), mem: () => { memDist = 999; }, skyLabel, frames, ex, ride, toggleMap, hAt, VEC, cam: camera, setDrive: v => { driveS = v; }, setSeason: i => { season = i; }, orbit, eye, riderG, setCam, DET: () => DET,  startTour, goStars, setFly, tour, stars, PLANETS: () => PLANETS, FINE: () => FINE, U,  RF, TREE, get RJ() { return RJ; }, get RB() { return RB; }, setTime: i => { timeMode = i; dayP = TIME_MODES[i][1]; }, renderer };
+window.__dbg = { VIN, pano, viewStep, resetView, startOver, findRider, stopGo, get camMode() { return camMode; }, get CODEVIEW() { return CODEVIEW; }, FENCES, snap: () => { camSnap = true; }, HORSES, MILLS, DUCKS, GUARDS, TRAIL, PETS, LAYERS, setPace, topo: () => document.getElementById('bTopo').click(), mem: () => { memDist = 999; }, skyLabel, frames, ex, ride, toggleMap, hAt, VEC, cam: camera, setDrive: v => { driveS = v; }, setSeason: i => { season = i; }, orbit, eye, riderG, setCam, DET: () => DET,  startTour, goStars, setFly, tour, stars, PLANETS: () => PLANETS, FINE: () => FINE, U,  RF, TREE, get RJ() { return RJ; }, get RB() { return RB; }, setTime: i => { timeMode = i; dayP = TIME_MODES[i][1]; }, renderer };
 
 /* ---------- source view: the scene stripped to black, with every data source drawn as lines in its own color ---------- */
 const CODEVIEW = (() => {
