@@ -124,11 +124,14 @@ Everything works from the keyboard, a trackpad or the two button pads on screen.
 | W / S, or 1 2 3 4 | Pace: stand, walk, trot, gallop |
 | Space | Stop or go |
 | F | Fly or land; Q climbs, Z drops |
-| M | Map. Arrow keys move it. Click to send the rider there, double-click to jump there |
+| M | Map. Arrow keys move it |
+| Click a spot on the map | A card with what is there, and Zoom in here, Send rider, Jump rider |
+| Double-click the map | Zoom in on that spot. With Shift, zoom out |
+| B | Back to the view before |
 | G | Find the rider on the map |
 | Shift + arrow keys | Turn and tilt the view |
 | [ and ] , Page Up and Page Down | Turn and tilt the view |
-| + and - , scroll or pinch | Zoom |
+| + and - , scroll or pinch | Zoom. On the map it zooms toward the pointer |
 | Drag | Look around, orbit the camera, or move the map |
 | C | Next camera |
 | R | Reset the view |

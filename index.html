@@ -22,6 +22,14 @@
   .pad button.w{grid-column:span 2;width:auto;font-size:11.5px;letter-spacing:.02em}
   .pad .cap{grid-column:1/-1;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;text-align:center;text-shadow:0 1px 4px #000;pointer-events:none}
   #vpad{right:12px;grid-template-columns:repeat(4,40px)}
+  #spot{position:fixed;display:none;z-index:6;width:250px;padding:12px 14px 12px;background:rgba(30,26,20,.93);border:1px solid rgba(243,234,216,.3);border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.45);font-size:13.5px;line-height:1.45}
+  #spot b{display:block;font-weight:normal;letter-spacing:.1em;text-transform:uppercase;font-size:13px;margin:0 22px 3px 0;color:#ffe9b8}
+  #spot .note{margin-top:7px;padding-top:7px;border-top:1px solid rgba(243,234,216,.2);font-style:italic;opacity:.92}
+  #spot .row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  #spot .row button{padding:6px 11px;font-size:12.5px}
+  #spot .x{position:absolute;right:6px;top:5px;padding:0;width:24px;height:24px;border-radius:12px;font-size:14px;line-height:1}
+  #spot:after{content:"";position:absolute;left:var(--ax,50%);bottom:-7px;width:12px;height:12px;margin-left:-6px;background:rgba(30,26,20,.93);border-right:1px solid rgba(243,234,216,.3);border-bottom:1px solid rgba(243,234,216,.3);transform:rotate(45deg)}
+  #spot.below:after{bottom:auto;top:-7px;transform:rotate(225deg)}
   #rpad{left:12px;grid-template-columns:repeat(4,40px)}
   #keysBox{max-width:560px;max-height:84vh;overflow:auto;margin:16px;padding:20px 22px;background:rgba(30,26,20,.92);border:1px solid rgba(243,234,216,.25);border-radius:10px}
   #keysBox h2{margin:0 0 4px;font-weight:normal;letter-spacing:.1em;text-transform:uppercase;font-size:17px}
@@ -79,8 +87,11 @@
   <button data-v="tl" title="Turn the view left  [">&#8634;</button><button data-v="up" title="Up">&#8593;</button><button data-v="tr" title="Turn the view right  ]">&#8635;</button><button data-v="zi" title="Zoom in  +">+</button>
   <button data-v="lf" title="Left">&#8592;</button><button data-v="dn" title="Down">&#8595;</button><button data-v="rt" title="Right">&#8594;</button><button data-v="zo" title="Zoom out  -">&#8722;</button>
   <button data-v="pu" title="Tilt up  Page Up">&#9651;</button><button data-v="pd" title="Tilt down  Page Down">&#9661;</button><button id="vFind" class="w" title="Show the rider on the map  G">Find rider</button>
-  <button id="vReset" class="w" title="Reset this view  R">Reset view</button><button id="vOver" class="w" title="Back to the start  H">Start over</button>
+  <button id="vBack" class="w" title="Back to the view before  B">Back</button><button id="vReset" class="w" title="Reset this view  R">Reset view</button>
+  <button id="vOver" class="w" title="Back to the start  H" style="grid-column:span 4">Start over</button>
 </div>
+<div id="spot"><button class="x" id="spX" title="Close  Esc">&#215;</button><b id="spT"></b><div id="spI"></div><div id="spN" class="note"></div>
+  <div class="row"><button id="spZ">Zoom in here</button><button id="spS">Send rider</button><button id="spJ">Jump rider</button></div></div>
 <div id="rpad" class="pad">
   <div class="cap">Rider</div>
   <button data-r="l" title="Steer left  A">&#8592;</button><button data-r="r" title="Steer right  D">&#8594;</button><button data-r="slow" title="Slower  S">&#8722;</button><button data-r="fast" title="Faster  W">+</button>
@@ -105,7 +116,10 @@
       <tr><td>M</td><td>Open or close the map</td></tr>
       <tr><td>Arrow keys</td><td>Move the map</td></tr>
       <tr><td>G</td><td>Find the rider</td></tr>
-      <tr><td>Click, double-click</td><td>Send the rider there, or jump there</td></tr>
+      <tr><td>Click a spot</td><td>What is there, with Zoom in, Send rider and Jump rider</td></tr>
+      <tr><td>Double-click</td><td>Zoom in on that spot. With Shift, zoom out</td></tr>
+      <tr><td>Scroll or pinch</td><td>Zoom toward the pointer</td></tr>
+      <tr><td>B</td><td>Back to the view before</td></tr>
     </table>
     <h3>The rider</h3>
     <table>
@@ -1266,7 +1280,7 @@ const HOMEB = []; // named home place buildings, labeled when you ride close
     const y = Math.min(hAt(x - w / 2, z), hAt(x + w / 2, z), hAt(x, z - d / 2), hAt(x, z + d / 2), hAt(x, z));
     g.position.set(x, y, z); g.rotation.y = -rot * Math.PI / 180; scene.add(g);
   }
-  const LIDB = [[-13.7,550.2,25.5,8.2,57.1,4.2,1.3,'CREAM','GRAY',"Ranch hand housing"],[-111.7,280.4,29.2,11.0,-2.4,5.2,1.4,'WHITE','STEEL',"Shed on the hill"],[-93.9,187.3,21.0,10.0,-0.0,4.8,1.5,'WHITE','STEEL',"Tractor and feed shed"],[-96.2,105.3,15.0,12.0,-0.0,3.6,1.0,'WHITE','STEEL',"Shop"],[-123.8,60.7,34.4,9.9,-2.7,3.4,1.1,'WHITE','STEEL',"Barn"],[-79.4,57.2,25.0,12.0,-0.0,5.1,1.2,'WHITE','STEEL',""],[-29.8,47.4,24.4,20.4,14.9,3.3,1.4,'BRICK','BRICKROOF',"Red brick house"],[-55.4,48.6,7.0,7.0,90.0,3.3,0.7,'WHITE','STEEL',"Bunkhouse"],[38.9,16.1,23.9,9.4,-4.1,3.3,1.0,'WHITE','STEEL',""],[8.4,4.9,21.0,6.0,-0.0,4.1,0.6,'WHITE','STEEL',"The White House"],[53.4,-245.4,16.3,10.6,-45.0,3.5,1.0,'WHITE','STEEL',"Airplane hangar"]]; // x, z, length, width, rotation, eave, roof rise, wall, roof, name
+  const LIDB = [[-13.7,550.2,25.5,8.2,57.1,4.2,1.3,'CREAM','GRAY',"Ranch hand housing"],[-111.7,280.4,29.2,11.0,-2.4,5.2,1.4,'WHITE','STEEL',"Shed on the hill"],[-93.9,187.3,21.0,10.0,-0.0,4.8,1.5,'WHITE','STEEL',"Tractor and feed shed"],[-96.2,105.3,15.0,12.0,-0.0,3.6,1.0,'WHITE','STEEL',"Shop"],[-123.8,60.7,34.4,9.9,-2.7,3.4,1.1,'WHITE','STEEL',"Barn"],[-79.4,57.2,25.0,12.0,-0.0,5.1,1.2,'WHITE','STEEL',""],[-29.8,47.4,24.4,20.4,14.9,3.3,1.4,'BRICK','BRICKROOF',"Red brick house"],[-55.4,48.6,7.0,7.0,90.0,3.3,0.7,'WHITE','STEEL',"Bunkhouse"],[38.9,16.1,23.9,9.4,-4.1,3.3,1.0,'WHITE','STEEL',""],[8.4,4.9,21.0,6.0,-0.0,4.1,0.6,'WHITE','STEEL',"The White House"],[53.4,-245.4,16.3,10.6,-45.0,3.5,1.0,'WHITE','STEEL',"Airplane hangar"],[753.0,1266.7,35.1,11.1,-2.6,4.5,1.3,'WHITE','STEEL',""],[701.9,1242.4,24.0,9.9,45.0,3.6,0.9,'WHITE','STEEL',""]]; // x, z, length, width, rotation, eave, roof rise, wall, roof, name
   for (const [x, z, w, d, rot, h, rise, wall, roof, nm] of LIDB.map(r => r.map(v => v === 'WHITE' ? WHITE : v === 'CREAM' ? CREAM : v === 'GRAY' ? GRAY : v === 'STEEL' ? STEEL : v === 'BRICK' ? BRICK : v === 'BRICKROOF' ? BRICKROOF : v))) {
     building(x, z, w, d, rot, h, wall, roof, rise, true);
     if (nm) HOMEB.push({ n: nm, x, z }); }
@@ -1296,6 +1310,7 @@ const LBEAMS = []; // light columns that mark the landmarks from afar, faded out
   scene.add(post, beam); LBEAMS.push(beam);
   { const C = LAND[2], b2 = beam.clone(); b2.material = beam.material.clone(); b2.position.set(C.x, hAt(C.x, C.z) + 30, C.z); scene.add(b2); LBEAMS.push(b2); }
   for (const q of VEC.lakelabels || []) LAND.push({ n: q[0], x: q[1], z: q[2], mapOnly: true });
+  LAND.push({ n: 'Pond', sub: 'not on the old topo map', x: 521, z: 1657, mapOnly: true });
   for (const l of LAND) { const el = document.createElement('div'); el.className = 'lm'; el.innerHTML = '<b>' + l.n + '</b>' + (l.sub ? '<br>' + l.sub : ''); document.body.appendChild(el); l.el = el; l.y = hAt(l.x, l.z); }
 }
 
@@ -2072,7 +2087,7 @@ canvas.addEventListener('pointerdown', e => { ptrs.set(e.pointerId, [e.clientX, 
 canvas.addEventListener('pointermove', e => {
   const p = ptrs.get(e.pointerId); if (!p) return;
   const dx = e.clientX - p[0], dy = e.clientY - p[1]; p[0] = e.clientX; p[1] = e.clientY; moved += Math.abs(dx) + Math.abs(dy);
-  if (ptrs.size === 1 && moved > 6) { VIN.tw = null;
+  if (ptrs.size === 1 && moved > 6) { VIN.tw = null; if (SPOT.on && moved > 14) closeSpot();
     if (camMode === 5) {
       if (btn === 2 || shift) { ex.yaw -= dx * .005; ex.pitch = Math.min(1.5, Math.max(.12, ex.pitch + dy * .004)); }
       else { const sc = ex.dist * 2 * Math.tan(camera.fov * Math.PI / 360) / innerHeight, cy = Math.cos(ex.yaw), sy = Math.sin(ex.yaw), up = dy * sc / Math.max(.3, Math.sin(ex.pitch));
@@ -2084,7 +2099,7 @@ canvas.addEventListener('pointermove', e => {
   }
   else if (ptrs.size === 2) { const [a, b] = [...ptrs.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]);
     if (pinch0) { if (camMode === 5) ex.dist = Math.min(24000, Math.max(60, ex.dist * pinch0 / d)); else orbit.dist = Math.min(4000, Math.max(4, orbit.dist * pinch0 / d)); }
-    pinch0 = d; VIN.tw = null; if (camMode < 3) toOrbit(); }
+    pinch0 = d; VIN.tw = null; closeSpot(); if (camMode < 3) toOrbit(); }
 });
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
 function pickGround(cx, cy) {
@@ -2096,15 +2111,15 @@ function pickGround(cx, cy) {
 const inRange = (x, z) => x > X0 + 150 && x < X1 - 150 && z > Z0 + 150 && z < Z1 - 150;
 function endPtr(e) {
   const had = ptrs.delete(e.pointerId); if (!had || e.type !== 'pointerup' || moved > 8) return;
-  if (camMode === 5) { if (btn !== 0) return; const g = pickGround(e.clientX, e.clientY); if (g && inRange(g[0], g[1])) { ride.mode = 'goto'; ride.ret = false; ride.tx = g[0]; ride.tz = g[1]; setRideLabel(); } return; }
+  if (camMode === 5) { if (btn !== 0) return; const g = pickGround(e.clientX, e.clientY), cx = e.clientX, cy = e.clientY; clearTimeout(SPOT.timer); if (SPOT.on) { closeSpot(); if (!g) return; } if (g && inRange(g[0], g[1])) SPOT.timer = setTimeout(() => openSpot(g[0], g[1]), 240); return; }
   ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); ray.setFromCamera(ndc, camera);
   const hit = ray.intersectObjects(frames.map(f => f.mesh))[0]; if (!hit) return;
   const f = frames.find(f => f.mesh === hit.object);
   if (f.photo) { document.getElementById('pImg').src = f.photo.url; document.getElementById('photoView').classList.add('on'); } else fileIn.click();
 }
 canvas.addEventListener('pointerup', endPtr); canvas.addEventListener('pointercancel', endPtr);
-canvas.addEventListener('dblclick', e => { if (camMode === 1) { const g = pickGround(e.clientX, e.clientY); if (g && inRange(g[0], g[1])) { ride.tx = g[0]; ride.tz = g[1]; ride.mode = 'goto'; ride.ret = false; if (gear < 1) setPace(1); setRideLabel(); } return; } if (camMode !== 5) return; const g = pickGround(e.clientX, e.clientY); if (g && inRange(g[0], g[1])) { ride.x = g[0]; ride.z = g[1]; ride.tx = g[0]; ride.tz = g[1]; ride.mode = 'free'; ride.ret = false; setPace(0); setRideLabel(); } });
-canvas.addEventListener('wheel', e => { e.preventDefault(); const u = e.deltaMode === 1 ? 33 : e.deltaMode === 2 ? 300 : 1, dx = e.deltaX * u, dy = e.deltaY * u; VIN.t = performance.now(); VIN.tw = null;
+canvas.addEventListener('dblclick', e => { if (camMode === 1) { const g = pickGround(e.clientX, e.clientY); if (g && inRange(g[0], g[1])) { ride.tx = g[0]; ride.tz = g[1]; ride.mode = 'goto'; ride.ret = false; if (gear < 1) setPace(1); setRideLabel(); } return; } if (camMode !== 5) return; clearTimeout(SPOT.timer); closeSpot(); const g = pickGround(e.clientX, e.clientY); if (g && inRange(g[0], g[1])) zoomTo(g[0], g[1], e.shiftKey ? 2.6 : .38); });
+canvas.addEventListener('wheel', e => { e.preventDefault(); const u = e.deltaMode === 1 ? 33 : e.deltaMode === 2 ? 300 : 1, dx = e.deltaX * u, dy = e.deltaY * u; VIN.t = performance.now(); VIN.tw = null; if (camMode === 5) { const now = performance.now(); if (!VIN.anchor || now - VIN.anchor.t > 300 || Math.hypot(e.clientX - VIN.anchor.cx, e.clientY - VIN.anchor.cy) > 12) { const g = pickGround(e.clientX, e.clientY); VIN.anchor = g ? { x: g[0], z: g[1], cx: e.clientX, cy: e.clientY, t: now } : null; } else VIN.anchor.t = now; }
   if (!e.ctrlKey && Math.abs(dx) > Math.abs(dy) * 1.5) { viewTurn(Math.max(-60, Math.min(60, dx)) * .0035); return; }
   VIN.zimp = Math.max(-1.6, Math.min(1.6, VIN.zimp - Math.max(-120, Math.min(120, dy)) * (e.ctrlKey ? .012 : .0017))); }, { passive: false });
 addEventListener('keydown', e => { if (e.ctrlKey || e.metaKey || e.altKey) return; const k = e.key.toLowerCase(); keys[k] = true;
@@ -2114,7 +2129,7 @@ addEventListener('keydown', e => { if (e.ctrlKey || e.metaKey || e.altKey) retur
   if (document.querySelector('.panel.on')) return;
   if (view || '[]{}-_=+'.includes(k) || k === 'pageup' || k === 'pagedown') { VIN.t = performance.now(); VIN.tw = null; return; }
   if (k === 'm') toggleMap(); if (k === 'f' && !e.repeat) { if (tour.on) endTour(); setFly(!ride.air); if (ride.mode === 'trail' && ride.air) { ride.mode = 'free'; setRideLabel(); } } if (!e.repeat && (k === 'arrowup' || k === 'w')) setPace(gear + 1); if (!e.repeat && (k === 'arrowdown' || k === 's')) setPace(gear - 1); if ('1234'.includes(k) && k.length === 1) setPace(+k - 1);
-  if (!e.repeat) { if (k === 'r') resetView(); if (k === 'h') startOver(); if (k === 'g') findRider(); if (k === 'c') setCam(NEXTCAM[camMode]); if (k === ' ') stopGo(); }
+  if (!e.repeat) { if (k === 'r') resetView(); if (k === 'h') startOver(); if (k === 'g') findRider(); if (k === 'c') setCam(NEXTCAM[camMode]); if (k === ' ') stopGo(); if (k === 'b' || k === 'backspace') backView(); }
   if (['arrowleft', 'arrowright', 'a', 'd'].includes(k) && tour.on) endTour();
   if (['arrowleft', 'arrowright', 'a', 'd', 'w', 's', 'arrowup', 'arrowdown'].includes(k) && stars.on) leaveStars();
   if (['arrowleft', 'arrowright', 'a', 'd'].includes(k) || ((k === 'arrowup' || k === 'arrowdown') && ride.mode !== 'trail')) { if (ride.mode !== 'free') { ride.mode = 'free'; ride.ret = false; setRideLabel(); } } });
@@ -2128,8 +2143,8 @@ function setCam(i) { camMode = i; camSnap = true; document.getElementById('bCam'
   document.getElementById('bMap').textContent = i === 5 ? 'Close map' : 'Map';
   if (i === 6) showHint("Standing at the survey marker on Grant's Peak. Drag to look around. The home place is straight ahead to the south.", 12000);
   if (VIN.place) VIN.place();
-  if (i === 5) showHint('Drag or use the arrow keys to move. Scroll or pinch to zoom. Shift-drag, Shift with the arrows, or the View buttons tilt and turn. Click a spot to send the rider there, double-click to jump there. R resets the view.', 16000); }
-function toggleMap() { VIN.tw = null; if (camMode !== 5) { prevCam = camMode; setCam(5); } else setCam(prevCam === 4 ? 0 : prevCam); }
+  if (i === 5) showHint('Click any spot to see what is there and zoom in. Double-click zooms straight in. Scroll or pinch zooms toward the pointer. Drag or use the arrow keys to move. B goes back a view, R shows the whole ranch.', 16000); }
+function toggleMap() { VIN.tw = null; closeSpot(); if (camMode !== 5) { prevCam = camMode; setCam(5); } else setCam(prevCam === 4 ? 0 : prevCam); }
 /* ---------- view and rider controls without a mouse: keys, trackpad, button pads ---------- */
 const VIN = { pad: {}, sm: { turn: 0, tilt: 0, zoom: 0, px: 0, pz: 0 }, zimp: 0, t: 0, tw: null, lastGear: 2 };
 const clampN = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -2137,7 +2152,7 @@ function toOrbit() { if (camMode === 3) return; const dx = camera.position.x - P
   setCam(3); if (keep && d > 2) { orbit.yaw = Math.atan2(dx, dz); orbit.pitch = clampN(Math.asin(dy / d), .03, 1.3); orbit.dist = clampN(d, 4, 4000); } }
 function viewTurn(a) { if (camMode === 5) ex.yaw += a; else if (camMode === 1) { eye.yaw = clampN(eye.yaw - a, -2.6, 2.6); eye.t = performance.now(); } else if (camMode === 6) pano.yaw -= a; else if (camMode !== 4) { toOrbit(); orbit.yaw += a; } }
 function viewTilt(a) { if (camMode === 5) ex.pitch = clampN(ex.pitch + a, .12, 1.5); else if (camMode === 1) { eye.pitch = clampN(eye.pitch + a, -1, .6); eye.t = performance.now(); } else if (camMode === 6) pano.pitch = clampN(pano.pitch + a, -.6, .6); else if (camMode !== 4) { toOrbit(); orbit.pitch = clampN(orbit.pitch + a, .03, 1.3); } }
-function viewZoom(z) { if (camMode === 5) ex.dist = clampN(ex.dist * Math.exp(-z), 60, 24000); else if (camMode === 1 || camMode === 6) { camera.fov = clampN(camera.fov * Math.exp(-z), 28, 85); camera.updateProjectionMatrix(); } else if (camMode !== 4) { toOrbit(); orbit.dist = clampN(orbit.dist * Math.exp(-z), 4, 4000); } }
+function viewZoom(z) { if (camMode === 5) { const d0 = ex.dist, a = VIN.anchor; ex.dist = clampN(ex.dist * Math.exp(-z), 60, 24000); if (a && performance.now() - a.t < 900) { const k = 1 - ex.dist / d0; ex.x = clampN(ex.x + (a.x - ex.x) * k, X0 + 200, X1 - 200); ex.z = clampN(ex.z + (a.z - ex.z) * k, Z0 + 200, Z1 - 200); } } else if (camMode === 1 || camMode === 6) { camera.fov = clampN(camera.fov * Math.exp(-z), 28, 85); camera.updateProjectionMatrix(); } else if (camMode !== 4) { toOrbit(); orbit.dist = clampN(orbit.dist * Math.exp(-z), 4, 4000); } }
 function viewPan(r, u) { const c = Math.cos(ex.yaw), sn = Math.sin(ex.yaw); ex.x = clampN(ex.x + c * r - sn * u, X0 + 200, X1 - 200); ex.z = clampN(ex.z - sn * r - c * u, Z0 + 200, Z1 - 200); }
 function viewStep(dt) { const p = VIN.pad, sm = VIN.sm, map = camMode === 5, sh = keys.shift, on = v => v ? 1 : 0, typing = !!document.querySelector('.panel.on');
   const aL = !typing && keys.arrowleft, aR = !typing && keys.arrowright, aU = !typing && keys.arrowup, aD = !typing && keys.arrowdown;
@@ -2150,24 +2165,55 @@ function viewStep(dt) { const p = VIN.pad, sm = VIN.sm, map = camMode === 5, sh 
   if (Math.abs(sm.turn) > .004) viewTurn(sm.turn * dt * 1.25); if (Math.abs(sm.tilt) > .004) viewTilt(sm.tilt * dt * .75);
   const z = zs + (Math.abs(sm.zoom) > .004 ? sm.zoom * dt * 1.5 : 0); if (z) viewZoom(z);
   if (map && (Math.abs(sm.px) > .004 || Math.abs(sm.pz) > .004)) viewPan(sm.px * ex.dist * .75 * dt, sm.pz * ex.dist * .75 * dt);
+  placeSpot();
   if (VIN.tw) { const tw = VIN.tw, kk = 1 - Math.exp(-dt * 4.5); let far = 0; for (const key in tw.to) { const d = tw.to[key] - tw.o[key]; tw.o[key] += d * kk; far = Math.max(far, Math.abs(d) / (tw.sc[key] || 1)); } if (far < .002) { for (const key in tw.to) tw.o[key] = tw.to[key]; VIN.tw = null; } } }
 function tween(o, to, sc) { if ('yaw' in to) o.yaw = Math.atan2(Math.sin(o.yaw - to.yaw), Math.cos(o.yaw - to.yaw)) + to.yaw; VIN.tw = { o, to, sc: sc || {} }; VIN.zimp = 0; }
-function resetView() { if (camMode === 5) tween(ex, { x: VEC.rc[0], z: VEC.rc[1], yaw: 0, pitch: 1.0, dist: 17000 }, { x: 1000, z: 1000, dist: 5000 });
+function resetView() { if (camMode === 5) pushView(); if (camMode === 5) tween(ex, { x: VEC.rc[0], z: VEC.rc[1], yaw: 0, pitch: 1.0, dist: 17000 }, { x: 1000, z: 1000, dist: 5000 });
   else if (camMode === 1) { tween(eye, { yaw: 0, pitch: -.2 }); camera.fov = 68; camera.updateProjectionMatrix(); }
   else if (camMode === 6) { tween(pano, { yaw: 0, pitch: -.03 }); camera.fov = 62; camera.updateProjectionMatrix(); }
   else if (camMode === 3) tween(orbit, { yaw: 2.4, pitch: .28, dist: 13 }, { dist: 10 });
   else { orbit.yaw = 2.4; orbit.pitch = .28; orbit.dist = 13; setCam(camMode); }
   showHint('View reset.', 2500); }
-function findRider() { if (camMode !== 5) { prevCam = camMode; setCam(5); } tween(ex, { x: clampN(P.x, X0 + 200, X1 - 200), z: clampN(P.z, Z0 + 200, Z1 - 200), dist: Math.min(ex.dist, 2200) }, { x: 1000, z: 1000, dist: 2000 }); showHint('The rider is under the beam of light.', 4000); }
+function findRider() { if (camMode !== 5) { prevCam = camMode; setCam(5); } else pushView(); tween(ex, { x: clampN(P.x, X0 + 200, X1 - 200), z: clampN(P.z, Z0 + 200, Z1 - 200), dist: Math.min(ex.dist, 2200) }, { x: 1000, z: 1000, dist: 2000 }); showHint('The rider is under the beam of light.', 4000); }
 function stopGo() { if (tour.on) endTour(); if (gear > 0) { VIN.lastGear = gear; setPace(0); } else setPace(VIN.lastGear || 2); }
 function startOver() { VIN.tw = null; VIN.zimp = 0; if (tour.on) endTour(); leaveStars(); if (ride.air) setFly(false); for (const el of document.querySelectorAll('.panel.on')) el.classList.remove('on'); document.getElementById('tourPick').style.display = 'none';
   ride.mode = 'trail'; ride.ret = false; s = 0.02; ride.y = null; ride.v = 3.6; setPace(2); setRideLabel();
   timeMode = 0; document.getElementById('bTime').textContent = 'Time: Auto';
   orbit.yaw = 2.4; orbit.pitch = .28; orbit.dist = 13; ex.x = VEC.rc[0]; ex.z = VEC.rc[1]; ex.yaw = 0; ex.pitch = 1.0; ex.dist = 17000; pano.yaw = 0; pano.pitch = -.03; setCam(0);
   showHint('Back at the start: on the trail at the home place, following the rider.', 6000); }
+/* ---------- click a spot on the map: what is there, zoom in, send or jump the rider ---------- */
+const SPOT = { on: false, x: 0, z: 0, timer: 0, ring: null, until: 0 };
+// places where the sources disagree with each other, checked by hand against lidar, aerial photo, wetlands inventory and the old map
+const NOTES = [{ x: 521, z: 1657, r: 200, n: 'Pond', t: 'This pond is not on the old USGS topo map. It was full of water when the 2023 lidar was flown, and mostly grass in the aerial photo. Land changes: what you find here may not be what you remember.' }];
+function pushView() { if (camMode !== 5) return; const h = VIN.hist || (VIN.hist = []), v = { x: ex.x, z: ex.z, yaw: ex.yaw, pitch: ex.pitch, dist: ex.dist }, l = h[h.length - 1]; if (l && Math.abs(l.x - v.x) < 5 && Math.abs(l.z - v.z) < 5 && Math.abs(l.dist - v.dist) < l.dist * .03) return; h.push(v); if (h.length > 30) h.shift(); }
+function backView() { const h = VIN.hist; if (camMode !== 5 || !h || !h.length) { showHint('Nothing to go back to yet.', 2500); return; } closeSpot(); tween(ex, h.pop(), { x: 1000, z: 1000, dist: 3000 }); }
+function zoomTo(x, z, f) { pushView(); const d = clampN(ex.dist * (f || .38), 90, 24000); tween(ex, { x: clampN(x, X0 + 200, X1 - 200), z: clampN(z, Z0 + 200, Z1 - 200), dist: d }, { x: 1000, z: 1000, dist: Math.max(300, d) }); SPOT.x = x; SPOT.z = z; SPOT.until = performance.now() + 7000; }
+function spotRing() { if (SPOT.ring) return SPOT.ring; const r = new THREE.Mesh(new THREE.RingGeometry(.78, 1, 48), new THREE.MeshBasicMaterial({ color: 0xffe9b8, transparent: true, opacity: .95, depthTest: false, depthWrite: false, fog: false, side: THREE.DoubleSide })); r.rotation.x = -Math.PI / 2; r.renderOrder = 50; r.visible = false; scene.add(r); return SPOT.ring = r; }
+function openSpot(x, z) { if (camMode !== 5) return; const $ = id => document.getElementById(id); let near = null, nd = 1e9; for (const l of LAND) { const d = Math.hypot(l.x - x, l.z - z); if (d < nd) { nd = d; near = l; } }
+  const note = NOTES.find(q => Math.hypot(q.x - x, q.z - z) < q.r), ft = Math.round((hAt(x, z) + 700) * 3.28084).toLocaleString(), H = LAND[0], dx = x - H.x, dz = z - H.z, mi = Math.hypot(dx, dz) / 1609.34;
+  const dir = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'][Math.round(Math.atan2(dx, -dz) / (Math.PI / 4) + 8) % 8];
+  const cap = t => t.toLowerCase().replace(/(^|[\s'])([a-z])/g, (m, a, b) => a === "'" ? m : a + b.toUpperCase());
+  $('spT').textContent = note ? note.n : nd < 260 ? cap(near.n) : 'This spot';
+  $('spI').textContent = ft + ' ft' + (mi < .12 ? ', at the home place' : ', ' + (mi < 10 ? mi.toFixed(1) : Math.round(mi)) + ' mi ' + dir + ' of the home place') + (!note && nd >= 260 && nd < 2500 ? '. Nearest: ' + cap(near.n) : '');
+  $('spN').style.display = note ? 'block' : 'none'; $('spN').textContent = note ? note.t : '';
+  $('spZ').disabled = ex.dist <= 95; SPOT.on = true; SPOT.x = x; SPOT.z = z; SPOT.until = 0; $('spot').style.display = 'block'; placeSpot(); }
+function closeSpot() { clearTimeout(SPOT.timer); if (!SPOT.on) return; SPOT.on = false; document.getElementById('spot').style.display = 'none'; SPOT.until = performance.now() + 1500; }
+const _sv = new THREE.Vector3();
+function placeSpot() { const ring = spotRing(), now = performance.now(), show = camMode === 5 && (SPOT.on || now < SPOT.until); ring.visible = show; if (!show) return;
+  const y = hAt(SPOT.x, SPOT.z); ring.position.set(SPOT.x, y + .5, SPOT.z); const pulse = 1 + .12 * Math.sin(now * .005); ring.scale.setScalar(ex.dist * .014 * pulse); ring.material.opacity = SPOT.on ? .95 : clampN((SPOT.until - now) / 1500, 0, .95);
+  if (!SPOT.on) return; _sv.set(SPOT.x, y, SPOT.z).project(camera); const el = document.getElementById('spot'), w = el.offsetWidth, h = el.offsetHeight, sx = (_sv.x * .5 + .5) * innerWidth, sy = (-_sv.y * .5 + .5) * innerHeight;
+  if (_sv.z > 1 || sx < -40 || sx > innerWidth + 40 || sy < -40 || sy > innerHeight + 40) { closeSpot(); return; }
+  const below = sy - h - 22 < 8, left = clampN(sx - w / 2, 8, innerWidth - w - 8), top = below ? sy + 22 : sy - h - 22;
+  el.classList.toggle('below', below); el.style.left = left + 'px'; el.style.top = clampN(top, 8, innerHeight - h - 8) + 'px'; el.style.setProperty('--ax', clampN(sx - left, 16, w - 16) + 'px'); }
+{ const $ = id => document.getElementById(id);
+  $('spX').onclick = closeSpot;
+  $('spZ').onclick = () => { zoomTo(SPOT.x, SPOT.z, .32); setTimeout(() => { $('spZ').disabled = ex.dist <= 95 || (VIN.tw && VIN.tw.to.dist <= 95); }, 50); };
+  $('spS').onclick = () => { ride.mode = 'goto'; ride.ret = false; ride.tx = SPOT.x; ride.tz = SPOT.z; if (gear < 1) setPace(2); setRideLabel(); closeSpot(); showHint('The rider is on the way.', 3000); };
+  $('spJ').onclick = () => { ride.x = SPOT.x; ride.z = SPOT.z; ride.tx = SPOT.x; ride.tz = SPOT.z; ride.mode = 'free'; ride.ret = false; setPace(0); setRideLabel(); closeSpot(); showHint('The rider is there now, standing.', 3000); };
+  $('vBack').onclick = backView; $('spot').addEventListener('pointerdown', e => e.stopPropagation()); }
 function steerStart() { if (tour.on) endTour(); if (stars.on) leaveStars(); if (ride.mode !== 'free') { ride.mode = 'free'; ride.ret = false; setRideLabel(); } }
 function keysPanel() { document.getElementById('keysP').classList.toggle('on'); }
-function escAll() { const open = document.querySelector('.panel.on'), tp = document.getElementById('tourPick'); if (open) open.classList.remove('on'); else if (tp.style.display === 'flex') tp.style.display = 'none'; else if (camMode === 5) toggleMap(); }
+function escAll() { const open = document.querySelector('.panel.on'), tp = document.getElementById('tourPick'); if (open) open.classList.remove('on'); else if (SPOT.on) closeSpot(); else if (tp.style.display === 'flex') tp.style.display = 'none'; else if (camMode === 5) toggleMap(); }
 { const hold = (el, down, up) => { el.addEventListener('pointerdown', e => { e.preventDefault(); try { el.setPointerCapture(e.pointerId); } catch (_) {} down(); }); for (const t of ['pointerup', 'pointercancel', 'lostpointercapture']) el.addEventListener(t, up); el.addEventListener('contextmenu', e => e.preventDefault()); };
   for (const b of document.querySelectorAll('#vpad [data-v]')) hold(b, () => { VIN.pad[b.dataset.v] = true; }, () => { VIN.pad[b.dataset.v] = false; });
   for (const b of document.querySelectorAll('#rpad [data-r]')) { const a = b.dataset.r;
@@ -2622,7 +2668,7 @@ function frame() {
   renderFrame(performance.now());
   requestAnimationFrame(frame);
 }
-window.__dbg = { VIN, pano, viewStep, resetView, startOver, findRider, stopGo, get camMode() { return camMode; }, get CODEVIEW() { return CODEVIEW; }, FENCES, snap: () => { camSnap = true; }, HORSES, MILLS, DUCKS, GUARDS, TRAIL, PETS, LAYERS, setPace, topo: () => document.getElementById('bTopo').click(), mem: () => { memDist = 999; }, skyLabel, frames, ex, ride, toggleMap, hAt, VEC, cam: camera, setDrive: v => { driveS = v; }, setSeason: i => { season = i; }, orbit, eye, riderG, setCam, DET: () => DET,  startTour, goStars, setFly, tour, stars, PLANETS: () => PLANETS, FINE: () => FINE, U,  RF, TREE, get RJ() { return RJ; }, get RB() { return RB; }, setTime: i => { timeMode = i; dayP = TIME_MODES[i][1]; }, renderer };
+window.__dbg = { SPOT, openSpot, zoomTo, backView, VIN, pano, viewStep, resetView, startOver, findRider, stopGo, get camMode() { return camMode; }, get CODEVIEW() { return CODEVIEW; }, FENCES, snap: () => { camSnap = true; }, HORSES, MILLS, DUCKS, GUARDS, TRAIL, PETS, LAYERS, setPace, topo: () => document.getElementById('bTopo').click(), mem: () => { memDist = 999; }, skyLabel, frames, ex, ride, toggleMap, hAt, VEC, cam: camera, setDrive: v => { driveS = v; }, setSeason: i => { season = i; }, orbit, eye, riderG, setCam, DET: () => DET,  startTour, goStars, setFly, tour, stars, PLANETS: () => PLANETS, FINE: () => FINE, U,  RF, TREE, get RJ() { return RJ; }, get RB() { return RB; }, setTime: i => { timeMode = i; dayP = TIME_MODES[i][1]; }, renderer };
 
 /* ---------- source view: the scene stripped to black, with every data source drawn as lines in its own color ---------- */
 const CODEVIEW = (() => {
